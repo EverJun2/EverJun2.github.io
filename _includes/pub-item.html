@@ -1,7 +1,7 @@
 <!--
   논문 항목 하나를 그리는 조각.
-  사용: {% include pub-item.html pub=<publication> %}
-  데이터: _data/publications.yml
+  사용: include 태그에 pub 파라미터로 _data/publications.yml 의 항목 하나를 넘긴다.
+  (초록까지 보이려면 detailed=true 를 함께 넘긴다)
 -->
 
 {% assign pub = include.pub %}

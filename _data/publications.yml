@@ -1,0 +1,39 @@
+# ============================================================
+#  논문 목록  ─  화면 구성은 _layouts/publications.html (/publications/)
+#
+#  항목 하나가 논문 하나입니다. 위에서부터 순서는 상관없고,
+#  화면에서는 year 기준 내림차순으로 자동 정렬됩니다.
+#
+#  title    : 논문 제목 (필수)
+#  authors  : 저자 전체 (site.data.cv.name_en 과 일치하는 부분은 자동 볼드)
+#  venue    : 학회/저널명 + 권(호), 페이지
+#  year     : 연도 (정렬 기준, 필수)
+#  type     : journal | conference | patent | preprint  (배지 표시)
+#  url      : 제목 클릭 시 이동할 원문 페이지 (DOI 링크 권장)
+#  doi      : DOI 문자열 (있으면 하단에 표시)
+#  abstract : 요약 한두 문장 (선택)
+#  featured : true 이면 홈(CV) 화면의 '주요 논문'에 노출
+#  review   : 이 논문에 대한 리뷰 글 주소 (선택, 예: /posts/rag-otc-chatbot/)
+#  links    : 추가 링크 배지 (선택)
+# ============================================================
+
+- title: Multilingual OTC Drugs Chatbot System Using Retrieval-Augmented Generation
+  authors: Jo, H., Kim, S., Jeong, D., Oh, H., & Chung, K.
+  venue: The Transactions of the Korean Institute of Electrical Engineers, 74(11), 1972–1978
+  year: 2025
+  type: journal
+  url: https://doi.org/10.5370/KIEE.2025.74.11.1972
+  doi: 10.5370/KIEE.2025.74.11.1972
+  abstract: >-
+    RAG(Retrieval-Augmented Generation)를 활용해 다국어 사용자에게 일반의약품(OTC) 정보를
+    제공하는 챗봇 시스템을 제안하고, 검색 기반 응답의 정확도를 평가하였다.
+  featured: true
+  review: '' # 리뷰 글을 쓰면 그 주소를 적으세요
+  links: []
+  # links:
+  #   - name: PDF
+  #     icon: fas fa-file-pdf
+  #     url: https://...
+  #   - name: Code
+  #     icon: fab fa-github
+  #     url: https://github.com/...

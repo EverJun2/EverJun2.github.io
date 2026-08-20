@@ -6,7 +6,7 @@ theme: jekyll-theme-chirpy
 # The language of the webpage › http://www.lingoes.net/en/translator/langcode.htm
 # If it has the same name as one of the files in folder `_data/locales`, the layout language will also be changed,
 # otherwise, the layout language will use the default value of 'en'.
-lang: ko
+lang: ko-KR
 
 # Change to your timezone › https://zones.arilyn.cc
 timezone: Asia/Seoul
@@ -149,6 +149,11 @@ pwa:
       # - "/example"  # URLs match `<SITE_URL>/example/*` will not be cached by the PWA
 
 paginate: 10
+# 블로그 글 목록 페이지 경로 (blog/index.html 이 페이지네이션 템플릿)
+paginate_path: "/blog/page:num"
+
+# 논문 리뷰 게시판(/paper-reviews/)이 모아 보여줄 포스트 카테고리 이름
+paper_review_category: Paper Review
 
 # The base URL of your site
 baseurl: ""

@@ -1,0 +1,269 @@
+---
+layout: default
+# 홈(CV) 화면. 내용은 _data/cv.yml · publications.yml · awards.yml 에서 읽어옵니다.
+---
+
+{% include lang.html %}
+
+{% assign cv = site.data.cv %}
+{% assign review_cat = site.paper_review_category | default: 'Paper Review' %}
+{% assign reviews = site.categories[review_cat] %}
+{% assign pub_count = site.data.publications | size %}
+{% assign award_count = site.data.awards | size %}
+{% assign review_count = reviews | size %}
+
+<div id="cv" class="px-1">
+  <!-- ========== 프로필 ========== -->
+  <section class="cv-hero">
+    <div class="cv-hero__avatar">
+      {% if cv.avatar and cv.avatar != empty %}
+        {% capture avatar_url %}{% include media-url.html src=cv.avatar %}{% endcapture %}
+        <img src="{{- avatar_url -}}" alt="{{ cv.name }}" width="120" height="120">
+      {% else %}
+        <span class="cv-hero__initials">{{ cv.name | truncate: 2, '' }}</span>
+      {% endif %}
+    </div>
+
+    <div class="cv-hero__info">
+      <h1 class="cv-hero__name">{{ cv.name }}</h1>
+
+      {% if cv.name_en and cv.name_en != empty %}
+        <p class="cv-hero__name-en">{{ cv.name_en }}</p>
+      {% endif %}
+
+      <p class="cv-hero__headline">{{ cv.headline }}</p>
+
+      {% if cv.subhead and cv.subhead != empty %}
+        <p class="cv-hero__subhead">{{ cv.subhead }}</p>
+      {% endif %}
+
+      <ul class="cv-meta">
+        {% if cv.affiliation and cv.affiliation != empty %}
+          <li><i class="fas fa-building-columns fa-fw"></i>{{ cv.affiliation }}</li>
+        {% endif %}
+        {% if cv.location and cv.location != empty %}
+          <li><i class="fas fa-location-dot fa-fw"></i>{{ cv.location }}</li>
+        {% endif %}
+        {% if cv.email and cv.email != empty %}
+          <li><i class="fas fa-envelope fa-fw"></i>{{ cv.email }}</li>
+        {% endif %}
+      </ul>
+
+      <div class="cv-hero__links">
+        {% for link in cv.links %}
+          {% if link.url and link.url != empty %}
+            <a
+              class="cv-chip"
+              href="{{ link.url }}"
+              {% unless link.url contains 'mailto:' %}
+                target="_blank"
+                rel="noopener noreferrer"
+              {% endunless %}
+            >
+              <i class="{{ link.icon }} fa-fw"></i>{{ link.name }}
+            </a>
+          {% endif %}
+        {% endfor %}
+
+        {% if cv.resume and cv.resume != empty %}
+          <a class="cv-chip cv-chip--accent" href="{{ cv.resume | relative_url }}" target="_blank" rel="noopener">
+            <i class="fas fa-file-lines fa-fw"></i>이력서 (PDF)
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 바로가기 카드 ========== -->
+  <nav class="cv-nav" aria-label="주요 페이지 바로가기">
+    <a class="cv-nav__card" href="{{ '/publications/' | relative_url }}">
+      <i class="fas fa-file-lines cv-nav__icon"></i>
+      <span class="cv-nav__count">{{ pub_count }}</span>
+      <span class="cv-nav__label">논문</span>
+      <span class="cv-nav__desc">발표한 논문 목록</span>
+    </a>
+
+    <a class="cv-nav__card" href="{{ '/awards/' | relative_url }}">
+      <i class="fas fa-trophy cv-nav__icon"></i>
+      <span class="cv-nav__count">{{ award_count }}</span>
+      <span class="cv-nav__label">수상</span>
+      <span class="cv-nav__desc">대회 · 수상 이력</span>
+    </a>
+
+    <a class="cv-nav__card" href="{{ '/paper-reviews/' | relative_url }}">
+      <i class="fas fa-book-open-reader cv-nav__icon"></i>
+      <span class="cv-nav__count">{{ review_count }}</span>
+      <span class="cv-nav__label">논문 리뷰</span>
+      <span class="cv-nav__desc">읽은 논문 정리</span>
+    </a>
+  </nav>
+
+  <!-- ========== 소개 ========== -->
+  {% if cv.about and cv.about != empty %}
+    <section class="cv-section">
+      <h2 class="cv-section__title"><i class="fas fa-user fa-fw"></i>소개</h2>
+      <div class="cv-about content">{{ cv.about | markdownify }}</div>
+    </section>
+  {% endif %}
+
+  <!-- ========== 학력 · 경력 · 자격 / 관심분야 · 스택 ========== -->
+  <div class="cv-grid">
+    <div class="cv-grid__col">
+      {% if cv.education.size > 0 %}
+        <section class="cv-section">
+          <h2 class="cv-section__title"><i class="fas fa-graduation-cap fa-fw"></i>학력</h2>
+          <ul class="cv-timeline">
+            {% for edu in cv.education %}
+              <li class="cv-timeline__item">
+                <span class="cv-timeline__period">{{ edu.period }}</span>
+                <span class="cv-timeline__head">{{ edu.school }}</span>
+                <span class="cv-timeline__sub">
+                  {{- edu.dept }}{% if edu.degree and edu.degree != empty %} · {{ edu.degree }}{% endif -%}
+                </span>
+                {% if edu.note and edu.note != empty %}
+                  <span class="cv-timeline__note">{{ edu.note }}</span>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        </section>
+      {% endif %}
+
+      {% if cv.experience.size > 0 %}
+        <section class="cv-section">
+          <h2 class="cv-section__title"><i class="fas fa-briefcase fa-fw"></i>경력 · 활동</h2>
+          <ul class="cv-timeline">
+            {% for exp in cv.experience %}
+              <li class="cv-timeline__item">
+                <span class="cv-timeline__period">{{ exp.period }}</span>
+                <span class="cv-timeline__head">{{ exp.org }}</span>
+                <span class="cv-timeline__sub">{{ exp.role }}</span>
+                {% if exp.desc and exp.desc != empty %}
+                  <span class="cv-timeline__note">{{ exp.desc }}</span>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        </section>
+      {% endif %}
+
+      {% if cv.certifications.size > 0 %}
+        <section class="cv-section">
+          <h2 class="cv-section__title"><i class="fas fa-certificate fa-fw"></i>자격 · 어학</h2>
+          <ul class="cv-timeline">
+            {% for cert in cv.certifications %}
+              <li class="cv-timeline__item">
+                {% if cert.date and cert.date != empty %}
+                  <span class="cv-timeline__period">{{ cert.date }}</span>
+                {% endif %}
+                <span class="cv-timeline__head">{{ cert.name }}</span>
+                {% if cert.org and cert.org != empty %}
+                  <span class="cv-timeline__sub">{{ cert.org }}</span>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        </section>
+      {% endif %}
+    </div>
+
+    <div class="cv-grid__col">
+      {% if cv.interests.size > 0 %}
+        <section class="cv-section">
+          <h2 class="cv-section__title"><i class="fas fa-lightbulb fa-fw"></i>관심 분야</h2>
+          <div class="cv-tags">
+            {% for item in cv.interests %}
+              <span class="cv-tag">{{ item }}</span>
+            {% endfor %}
+          </div>
+        </section>
+      {% endif %}
+
+      {% if cv.skills.size > 0 %}
+        <section class="cv-section">
+          <h2 class="cv-section__title"><i class="fas fa-code fa-fw"></i>기술 스택</h2>
+          {% for skill in cv.skills %}
+            <div class="cv-skill">
+              <span class="cv-skill__group">{{ skill.group }}</span>
+              <div class="cv-tags">
+                {% for item in skill.items %}
+                  <span class="cv-tag">{{ item }}</span>
+                {% endfor %}
+              </div>
+            </div>
+          {% endfor %}
+        </section>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- ========== 주요 논문 ========== -->
+  {% assign featured_pubs = site.data.publications | where: 'featured', true | sort: 'year' | reverse %}
+  {% if featured_pubs.size > 0 %}
+    <section class="cv-section">
+      <h2 class="cv-section__title">
+        <i class="fas fa-file-lines fa-fw"></i>주요 논문
+        <a class="cv-section__more" href="{{ '/publications/' | relative_url }}">
+          전체 보기<i class="fas fa-angle-right"></i>
+        </a>
+      </h2>
+      <ul class="cv-list">
+        {% for pub in featured_pubs limit: 3 %}
+          {% include pub-item.html pub=pub %}
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+
+  <!-- ========== 주요 수상 ========== -->
+  {% assign featured_awards = site.data.awards | where: 'featured', true | sort: 'date' | reverse %}
+  {% if featured_awards.size > 0 %}
+    <section class="cv-section">
+      <h2 class="cv-section__title">
+        <i class="fas fa-trophy fa-fw"></i>주요 수상
+        <a class="cv-section__more" href="{{ '/awards/' | relative_url }}">
+          전체 보기<i class="fas fa-angle-right"></i>
+        </a>
+      </h2>
+      <ul class="cv-list">
+        {% for award in featured_awards limit: 3 %}
+          <li class="cv-award">
+            <div class="cv-award__head">
+              {% if award.prize and award.prize != empty %}
+                <span class="cv-badge cv-badge--prize">{{ award.prize }}</span>
+              {% endif %}
+              <span class="cv-award__title">{{ award.title }}</span>
+            </div>
+            <div class="cv-award__meta">
+              {{- award.date }}{% if award.org and award.org != empty %} · {{ award.org }}{% endif -%}
+            </div>
+            {% if award.summary and award.summary != empty %}
+              <p class="cv-award__summary">{{ award.summary }}</p>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+
+  <!-- ========== 최근 논문 리뷰 ========== -->
+  {% if review_count > 0 %}
+    <section class="cv-section">
+      <h2 class="cv-section__title">
+        <i class="fas fa-book-open-reader fa-fw"></i>최근 논문 리뷰
+        <a class="cv-section__more" href="{{ '/paper-reviews/' | relative_url }}">
+          전체 보기<i class="fas fa-angle-right"></i>
+        </a>
+      </h2>
+      <ul class="cv-list">
+        {% for post in reviews limit: 4 %}
+          <li class="cv-review">
+            <a class="cv-review__title" href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            <span class="cv-review__date">{{ post.date | date: '%Y.%m.%d' }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+</div>
+<!-- #cv -->

@@ -1,0 +1,77 @@
+<!--
+  논문 항목 하나를 그리는 조각.
+  사용: {% include pub-item.html pub=<publication> %}
+  데이터: _data/publications.yml
+-->
+
+{% assign pub = include.pub %}
+{% assign me = site.data.cv.name_en %}
+
+{% if me and me != empty %}
+  {% capture me_strong %}<strong>{{ me }}</strong>{% endcapture %}
+  {% assign authors = pub.authors | replace: me, me_strong %}
+{% else %}
+  {% assign authors = pub.authors %}
+{% endif %}
+
+{% case pub.type %}
+  {% when 'journal' %}{% assign type_label = '저널' %}
+  {% when 'conference' %}{% assign type_label = '학술대회' %}
+  {% when 'patent' %}{% assign type_label = '특허' %}
+  {% when 'preprint' %}{% assign type_label = '프리프린트' %}
+  {% else %}{% assign type_label = pub.type %}
+{% endcase %}
+
+<li class="cv-pub">
+  <div class="cv-pub__year">{{ pub.year }}</div>
+
+  <div class="cv-pub__body">
+    <h3 class="cv-pub__title">
+      {% if pub.url and pub.url != empty %}
+        <a href="{{ pub.url }}" target="_blank" rel="noopener noreferrer">
+          {{ pub.title }}<i class="fas fa-arrow-up-right-from-square cv-pub__ext"></i>
+        </a>
+      {% else %}
+        {{ pub.title }}
+      {% endif %}
+    </h3>
+
+    {% if authors and authors != empty %}
+      <p class="cv-pub__authors">{{ authors }}</p>
+    {% endif %}
+
+    {% if pub.venue and pub.venue != empty %}
+      <p class="cv-pub__venue">{{ pub.venue }}</p>
+    {% endif %}
+
+    {% if include.detailed and pub.abstract and pub.abstract != empty %}
+      <p class="cv-pub__abstract">{{ pub.abstract }}</p>
+    {% endif %}
+
+    <div class="cv-pub__links">
+      {% if type_label and type_label != empty %}
+        <span class="cv-badge">{{ type_label }}</span>
+      {% endif %}
+
+      {% if pub.doi and pub.doi != empty %}
+        <a class="cv-chip cv-chip--sm" href="https://doi.org/{{ pub.doi }}" target="_blank" rel="noopener noreferrer">
+          <i class="fas fa-link fa-fw"></i>DOI
+        </a>
+      {% endif %}
+
+      {% for link in pub.links %}
+        {% if link.url and link.url != empty %}
+          <a class="cv-chip cv-chip--sm" href="{{ link.url }}" target="_blank" rel="noopener noreferrer">
+            <i class="{{ link.icon | default: 'fas fa-link' }} fa-fw"></i>{{ link.name }}
+          </a>
+        {% endif %}
+      {% endfor %}
+
+      {% if pub.review and pub.review != empty %}
+        <a class="cv-chip cv-chip--sm cv-chip--accent" href="{{ pub.review | relative_url }}">
+          <i class="fas fa-book-open-reader fa-fw"></i>리뷰 보기
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</li>

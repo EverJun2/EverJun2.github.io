@@ -1,0 +1,46 @@
+---
+layout: page
+# 논문 목록 페이지. 데이터는 _data/publications.yml
+---
+
+{% assign pubs = site.data.publications | sort: 'year' | reverse %}
+{% assign total = pubs | size %}
+
+<div id="publications">
+  {% if page.intro and page.intro != empty %}
+    <p class="cv-page-intro">{{ page.intro }}</p>
+  {% endif %}
+
+  {% if total > 0 %}
+    <p class="cv-count">총 <strong>{{ total }}</strong>편</p>
+
+    {% assign last_year = '' %}
+    {% for pub in pubs %}
+      {% assign cur_year = pub.year | append: '' %}
+
+      {% if cur_year != last_year %}
+        {% unless forloop.first %}
+          </ul>
+        {% endunless %}
+
+        <h2 class="cv-year">{{ cur_year }}</h2>
+        <ul class="cv-list">
+
+        {% assign last_year = cur_year %}
+      {% endif %}
+
+      {% include pub-item.html pub=pub detailed=true %}
+
+      {% if forloop.last %}
+        </ul>
+      {% endif %}
+    {% endfor %}
+  {% else %}
+    <div class="cv-empty">
+      <i class="fas fa-file-lines"></i>
+      <p>아직 등록된 논문이 없습니다.</p>
+      <p class="cv-empty__hint"><code>_data/publications.yml</code> 에 항목을 추가하세요.</p>
+    </div>
+  {% endif %}
+</div>
+<!-- #publications -->

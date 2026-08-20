@@ -1,0 +1,90 @@
+# ============================================================
+#  홈(CV) 화면 데이터  ─  화면 구성은 _layouts/cv.html
+#  이 파일의 값만 고치면 홈 화면이 바뀝니다. (TODO 부분을 채우세요)
+# ============================================================
+
+# ---------- 프로필 ----------
+name: EverJun2 # TODO: 실명으로 교체 (예: 조현준)
+name_en: Jo, H. # TODO: 논문 표기용 영문명 (예: Jo, Hyeonjun)
+headline: Server Development · AI Engineering # 이름 아래 한 줄 소개
+subhead: Multimodal System / RAG 에 관심이 많습니다.
+
+# 프로필 사진: /assets/img/profile.jpg 처럼 파일을 넣고 경로를 적으세요.
+# 비워두면 이름 이니셜이 원형 배지로 표시됩니다. (없는 경로를 적으면 빌드 테스트가 깨집니다)
+avatar: ''
+
+location: Suwon, Korea
+affiliation: 경기대학교 컴퓨터공학부 # 소속
+email: deverjun2@gmail.com
+
+# 이력서 PDF (예: /assets/pdf/cv.pdf). 비워두면 버튼이 숨겨집니다.
+resume: ''
+
+# ---------- 소개 (마크다운 사용 가능) ----------
+about: >-
+  경기대학교 컴퓨터공학부에서 학사 과정을 밟고 있으며, **서버 개발**과 **AI 엔지니어링**을 함께 공부하고 있습니다.
+
+  특히 텍스트·이미지·음성을 함께 다루는 **멀티모달 시스템**과 **RAG(Retrieval-Augmented Generation)** 기반
+  응용에 관심이 있고, 연구한 내용을 서비스 형태로 구현하는 과정을 좋아합니다.
+
+  이 사이트에는 발표한 **논문**, **수상 이력**, 그리고 읽은 논문을 정리한 **논문 리뷰**를 모아두고 있습니다.
+
+# ---------- 외부 링크 (url 이 비어 있으면 자동으로 숨김) ----------
+links:
+  - name: GitHub
+    icon: fab fa-github
+    url: https://github.com/EverJun2
+  - name: Email
+    icon: fas fa-envelope
+    url: mailto:deverjun2@gmail.com
+  - name: Google Scholar
+    icon: fas fa-graduation-cap
+    url: '' # TODO
+  - name: LinkedIn
+    icon: fab fa-linkedin
+    url: '' # TODO
+
+# ---------- 학력 ----------
+education:
+  - period: 2021.03 – 재학 중 # TODO: 실제 기간으로 수정
+    school: 경기대학교
+    dept: 컴퓨터공학부
+    degree: 학사 과정
+    note: 서버 개발 / AI 엔지니어링
+
+# ---------- 관심 연구 분야 ----------
+interests:
+  - Multimodal System
+  - Retrieval-Augmented Generation
+  - LLM Application
+  - Backend / Server Engineering
+
+# ---------- 기술 스택 ----------
+skills:
+  - group: Language
+    items: [Java, Python, JavaScript]
+  - group: Backend
+    items: [Spring Boot, FastAPI, Flask]
+  - group: AI / ML
+    items: [PyTorch, RAG, LLM]
+  - group: Data
+    items: [MySQL, MongoDB, Redis]
+
+# ---------- 자격 / 어학 ----------
+certifications:
+  - name: SQL Developer (SQLD)
+    org: 한국데이터산업진흥원
+    date: '' # TODO: 취득일 (예: 2024.06)
+  - name: CSTS
+    org: 소프트웨어 테스팅 자격
+    date: ''
+  - name: TOPCIT (699점)
+    org: 정보통신기획평가원
+    date: ''
+
+# ---------- 경력 / 활동 (없으면 목록을 비워두면 섹션이 숨겨집니다) ----------
+experience: []
+# - period: 2025.03 – 2025.08
+#   org: 소속 기관
+#   role: 역할
+#   desc: 한 줄 설명

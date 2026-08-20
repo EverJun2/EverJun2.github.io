@@ -18,11 +18,18 @@
 
   <nav class="flex-column flex-grow-1 w-100 ps-0">
     <ul class="nav">
-      <!-- home -->
-      <li class="nav-item{% if page.layout == 'home' %}{{ " active" }}{% endif %}">
+      <!-- home (CV) -->
+      <li class="nav-item{% if page.layout == 'cv' %}{{ " active" }}{% endif %}">
         <a href="{{ '/' | relative_url }}" class="nav-link">
           <i class="fa-fw fas fa-home"></i>
           <span>{{ site.data.locales[include.lang].tabs.home | upcase }}</span>
+        </a>
+      </li>
+      <!-- blog: 글 목록. 페이지네이션 템플릿은 blog/index.html -->
+      <li class="nav-item{% if page.layout == 'home' %}{{ " active" }}{% endif %}">
+        <a href="{{ '/blog/' | relative_url }}" class="nav-link">
+          <i class="fa-fw fas fa-pen-to-square"></i>
+          <span>{{ site.data.locales[include.lang].tabs.blog | default: '블로그' | upcase }}</span>
         </a>
       </li>
       <!-- the real tabs -->

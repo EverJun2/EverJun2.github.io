@@ -1,0 +1,66 @@
+---
+layout: page
+# 수상 이력 페이지. 데이터는 _data/awards.yml
+---
+
+{% assign awards = site.data.awards | sort: 'date' | reverse %}
+{% assign total = awards | size %}
+
+<div id="awards">
+  {% if page.intro and page.intro != empty %}
+    <p class="cv-page-intro">{{ page.intro }}</p>
+  {% endif %}
+
+  {% if total > 0 %}
+    <p class="cv-count">총 <strong>{{ total }}</strong>건</p>
+
+    <ul class="cv-list cv-award-list">
+      {% for award in awards %}
+        <li class="cv-award cv-award--card">
+          <div class="cv-award__head">
+            {% if award.prize and award.prize != empty %}
+              <span class="cv-badge cv-badge--prize">{{ award.prize }}</span>
+            {% endif %}
+
+            {% if award.url and award.url != empty %}
+              <a class="cv-award__title" href="{{ award.url }}" target="_blank" rel="noopener noreferrer">
+                {{ award.title }}<i class="fas fa-arrow-up-right-from-square cv-pub__ext"></i>
+              </a>
+            {% else %}
+              <span class="cv-award__title">{{ award.title }}</span>
+            {% endif %}
+          </div>
+
+          <div class="cv-award__meta">
+            <i class="far fa-calendar fa-fw"></i>{{ award.date }}
+            {%- if award.org and award.org != empty %}
+              <i class="fas fa-building-columns fa-fw ms-2"></i>{{ award.org }}
+            {%- endif %}
+            {%- if award.team and award.team != empty %}
+              <i class="fas fa-users fa-fw ms-2"></i>{{ award.team }}
+            {%- endif %}
+          </div>
+
+          {% if award.summary and award.summary != empty %}
+            <p class="cv-award__summary">{{ award.summary }}</p>
+          {% endif %}
+
+          {% if award.tags.size > 0 %}
+            <div class="cv-tags">
+              {% for tag in award.tags %}
+                <span class="cv-tag">{{ tag }}</span>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <div class="cv-empty">
+      <i class="fas fa-trophy"></i>
+      <p>아직 등록된 수상 이력이 없습니다.</p>
+      <p class="cv-empty__hint"><code>_data/awards.yml</code> 에 항목을 추가하세요.</p>
+    </div>
+  {% endif %}
+</div>
+<!-- #awards -->

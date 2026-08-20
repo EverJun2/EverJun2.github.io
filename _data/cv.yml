@@ -37,7 +37,7 @@ links:
     url: '' # TODO
   - name: LinkedIn
     icon: fab fa-linkedin
-    url: 'www.linkedin.com/in/hangjunjo' # TODO
+    url: 'https://www.linkedin.com/in/hangjunjo' # TODO
 
 # ---------- 학력 ----------
 education:

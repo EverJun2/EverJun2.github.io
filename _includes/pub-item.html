@@ -14,7 +14,8 @@
   {% assign authors = pub.authors %}
 {% endif %}
 
-{% case pub.type %}
+{% assign pub_type = pub.type | downcase %}
+{% case pub_type %}
   {% when 'journal' %}{% assign type_label = '저널' %}
   {% when 'conference' %}{% assign type_label = '학술대회' %}
   {% when 'patent' %}{% assign type_label = '특허' %}
@@ -29,7 +30,7 @@
     <h3 class="cv-pub__title">
       {% if pub.url and pub.url != empty %}
         <a href="{{ pub.url }}" target="_blank" rel="noopener noreferrer">
-          {{ pub.title }}<i class="fas fa-arrow-up-right-from-square cv-pub__ext"></i>
+          {{ pub.title }}<span class="cv-pub__ext">↗</span>
         </a>
       {% else %}
         {{ pub.title }}
@@ -55,21 +56,21 @@
 
       {% if pub.doi and pub.doi != empty %}
         <a class="cv-chip cv-chip--sm" href="https://doi.org/{{ pub.doi }}" target="_blank" rel="noopener noreferrer">
-          <i class="fas fa-link fa-fw"></i>DOI
+          <span class="cv-emoji">🔗</span>DOI
         </a>
       {% endif %}
 
       {% for link in pub.links %}
         {% if link.url and link.url != empty %}
           <a class="cv-chip cv-chip--sm" href="{{ link.url }}" target="_blank" rel="noopener noreferrer">
-            <i class="{{ link.icon | default: 'fas fa-link' }} fa-fw"></i>{{ link.name }}
+            <span class="cv-emoji">{{ link.emoji | default: '🔗' }}</span>{{ link.name }}
           </a>
         {% endif %}
       {% endfor %}
 
       {% if pub.review and pub.review != empty %}
         <a class="cv-chip cv-chip--sm cv-chip--accent" href="{{ pub.review | relative_url }}">
-          <i class="fas fa-book-open-reader fa-fw"></i>리뷰 보기
+          <span class="cv-emoji">📚</span>리뷰 보기
         </a>
       {% endif %}
     </div>

@@ -63,7 +63,7 @@ layout: page
                   </span>
                   {% if post.paper.url and post.paper.url != empty %}
                     <a class="cv-chip cv-chip--sm" href="{{ post.paper.url }}" target="_blank" rel="noopener noreferrer">
-                      <i class="fas fa-link fa-fw"></i>원문
+                      <span class="cv-emoji">🔗</span>원문
                     </a>
                   {% endif %}
                 {% else %}
@@ -79,7 +79,7 @@ layout: page
     </div>
   {% else %}
     <div class="cv-empty">
-      <i class="fas fa-book-open-reader"></i>
+      <span class="cv-emoji">📚</span>
       <p>아직 작성한 논문 리뷰가 없습니다.</p>
       <p class="cv-empty__hint">
         <code>_posts/</code> 에 글을 추가하고 머리말에 <code>categories: [{{ review_cat }}]</code> 를 넣으면 이 게시판에 표시됩니다.

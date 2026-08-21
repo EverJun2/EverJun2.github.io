@@ -9,6 +9,9 @@ layout: default
     {% assign tab_key = page.title | downcase %}
     {% assign title = site.data.locales[lang].tabs[tab_key] | default: page.title %}
     <h1 class="dynamic-title">
+      {%- if page.emoji and page.emoji != empty -%}
+        <span class="cv-emoji">{{ page.emoji }}</span>
+      {%- endif -%}
       {{ title }}
     </h1>
     <div class="content">

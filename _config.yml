@@ -148,11 +148,9 @@ pwa:
     deny_paths:
       # - "/example"  # URLs match `<SITE_URL>/example/*` will not be cached by the PWA
 
-paginate: 10
-# 블로그 글 목록 페이지 경로 (blog/index.html 이 페이지네이션 템플릿)
-paginate_path: "/blog/page:num"
-
-# 논문 리뷰 게시판(/paper-reviews/)이 모아 보여줄 포스트 카테고리 이름
+# 논문 리뷰 게시판(/paper-reviews/)이 모아 보여줄 포스트 카테고리 이름.
+#  - 이 카테고리의 글  → /paper-reviews/ 게시판에만 표시
+#  - 그 외의 글        → /blog/ (개인 글) 목록에만 표시
 paper_review_category: Paper Review
 
 # The base URL of your site

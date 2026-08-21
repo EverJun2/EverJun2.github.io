@@ -11,7 +11,8 @@ $topbar-height: 3rem !default;
 $search-max-width: 200px !default;
 $footer-height: 5rem !default;
 $footer-height-large: 6rem !default; /* screen width: < 850px */
-$main-content-max-width: 1250px !default;
+$main-content-max-width: 1080px !default; /* 화면 가운데 컨테이너(헤더 · 본문 · 푸터) 최대 폭 */
+$page-max-width: 920px !default; /* 목차 패널이 없는 페이지의 본문 컬럼 최대 폭 */
 $radius-sm: 6px !default;
 $radius-lg: 10px !default;
 $back2top-size: 2.75rem !default;
@@ -26,5 +27,15 @@ $code-icon-width: 1.75rem !default;
 
 /* fonts */
 
-$font-family-base: 'Source Sans Pro', 'Microsoft Yahei', sans-serif !default;
-$font-family-heading: Lato, 'Microsoft Yahei', sans-serif !default;
+// 본문 · 제목 모두 Pretendard 로 통일한다. (CDN 은 _data/origin/cors.yml 의 webfonts)
+$font-family-base:
+  'Pretendard Variable',
+  Pretendard,
+  -apple-system,
+  BlinkMacSystemFont,
+  system-ui,
+  'Apple SD Gothic Neo',
+  'Malgun Gothic',
+  'Noto Sans KR',
+  sans-serif !default;
+$font-family-heading: $font-family-base !default;

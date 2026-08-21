@@ -7,6 +7,10 @@
 
 :root {
   font-size: 16px;
+
+  /* 부트스트랩 컴포넌트(툴팁 · 폼 등)까지 Pretendard 로 맞춘다 */
+  --bs-font-sans-serif: #{v.$font-family-base};
+  --bs-body-font-family: #{v.$font-family-base};
 }
 
 html {
@@ -46,22 +50,25 @@ body {
   font-family: v.$font-family-base;
 }
 
+/*
+ * 사이드바/헤더 타이틀을 없앴으므로 페이지 제목은 모든 화면에서 본문에 노출한다.
+ */
 h1.dynamic-title {
-  @include bp.lt(bp.get(lg)) {
-    display: none;
-
-    ~ .content {
-      margin-top: 2.5rem;
-    }
-  }
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-main {
-  &.col-12 {
-    @include bp.xxxl {
-      padding-right: 4.5rem !important;
-    }
-  }
+/*
+ * 목차 패널이 없는 페이지(홈 CV · 논문 · 수상 · 게시판 · 블로그)는
+ * 본문을 화면 가운데 고정 폭 컬럼으로 둔다.
+ */
+main.centered-col,
+#tail-wrapper.centered-col {
+  width: 100%;
+  max-width: v.$page-max-width;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
 .preview-img {
@@ -444,9 +451,11 @@ mjx-container {
       }
     }
 
-    @include bp.xxxl {
+    @include bp.xl {
       max-width: v.$main-content-max-width;
+    }
 
+    @include bp.xxxl {
       @include mx.pl-pr(1.75rem, true);
     }
   }
@@ -461,10 +470,6 @@ mjx-container {
 }
 
 #tail-wrapper {
-  @include bp.xxxl {
-    padding-right: 4.5rem !important;
-  }
-
   > :not(script) {
     margin-top: 3rem;
   }

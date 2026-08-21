@@ -10,7 +10,8 @@ headline: Vision AI, Multimodal AI # 이름 아래 한 줄 소개
 subhead: 
 
 # 프로필 사진: /assets/img/profile.jpg 처럼 파일을 넣고 경로를 적으세요.
-# 비워두면 이름 이니셜이 원형 배지로 표시됩니다. (없는 경로를 적으면 빌드 테스트가 깨집니다)
+# 이름 위에 원형으로 표시됩니다. 비워두면 이름 이니셜이 대신 들어갑니다.
+# (없는 경로를 적으면 빌드 테스트가 깨집니다)
 avatar: ''
 
 location: Suwon, Korea
@@ -25,19 +26,20 @@ about: >-
   test
 
 # ---------- 외부 링크 (url 이 비어 있으면 자동으로 숨김) ----------
+#  emoji : 배지 앞에 붙는 이모지. 비워두면 🔗 이 쓰입니다.
 links:
   - name: GitHub
-    icon: fab fa-github
+    emoji: "🐙"
     url: https://github.com/EverJun2
   - name: Email
-    icon: fas fa-envelope
+    emoji: "📮"
     url: mailto:deverjun2@gmail.com
   - name: Google Scholar
-    icon: fas fa-graduation-cap
+    emoji: "🎓"
     url: '' # TODO
   - name: LinkedIn
-    icon: fab fa-linkedin
-    url: 'https://www.linkedin.com/in/hangjunjo' # TODO
+    emoji: "💼"
+    url: 'https://www.linkedin.com/in/hangjunjo'
 
 # ---------- 학력 ----------
 education:
@@ -81,8 +83,13 @@ certifications:
     date: ''
 
 # ---------- 경력 / 활동 (없으면 목록을 비워두면 섹션이 숨겨집니다) ----------
-experience: 
- - period: 2026.01 – 2027301
-   org: ToBig's
-   role: Member
-   desc: 
+#  desc 처럼 여러 줄을 쓰거나 문장에 콜론(:)이 들어가면 `|-` 블록으로 적으세요.
+#  `|-` 다음 줄부터 같은 깊이로 들여쓰기하면 줄바꿈이 그대로 화면에 나옵니다.
+experience:
+  - period: 2026.01 – 2027.01
+    org: ToBig's
+    role: Member
+    desc: |-
+      Paper reviews on CV and Multimodal AI
+      Current Projects: Multimodal Fake News Detection
+      Completed Projects: VLM-based Anomaly Detection

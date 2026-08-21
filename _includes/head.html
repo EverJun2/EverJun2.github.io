@@ -56,16 +56,18 @@
   {% endif %}
 
   <title>
-    {%- unless page.layout == 'home' -%}
+    {%- unless page.layout == 'cv' -%}
       {%- capture title -%}
         {%- if page.collection == 'tabs' -%}
           {%- assign tab_key = page.title | downcase -%}
-          {{- site.data.locales[include.lang].tabs[tab_key] -}}
+          {{- site.data.locales[include.lang].tabs[tab_key] | default: page.title -}}
         {%- else -%}
           {{- page.title -}}
         {%- endif -%}
       {%- endcapture -%}
-      {{- title | append: ' | ' -}}
+      {%- if title != empty -%}
+        {{- title | append: ' | ' -}}
+      {%- endif -%}
     {%- endunless -%}
     {{- site.title -}}
   </title>
@@ -89,7 +91,7 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ '/assets/css/:THEME.css' | replace: ':THEME', site.theme | relative_url }}">
 
-  <!-- Web Font -->
+  <!-- Web Font (Pretendard) -->
   <link rel="stylesheet" href="{{ site.data.origin[type].webfonts | relative_url }}">
 
   <!-- Font Awesome Icons -->

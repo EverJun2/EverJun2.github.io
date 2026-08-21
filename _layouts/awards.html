@@ -24,7 +24,7 @@ layout: page
 
             {% if award.url and award.url != empty %}
               <a class="cv-award__title" href="{{ award.url }}" target="_blank" rel="noopener noreferrer">
-                {{ award.title }}<i class="fas fa-arrow-up-right-from-square cv-pub__ext"></i>
+                {{ award.title }}<span class="cv-pub__ext">↗</span>
               </a>
             {% else %}
               <span class="cv-award__title">{{ award.title }}</span>
@@ -32,12 +32,12 @@ layout: page
           </div>
 
           <div class="cv-award__meta">
-            <i class="far fa-calendar fa-fw"></i>{{ award.date }}
+            <span class="cv-emoji">📅</span>{{ award.date }}
             {%- if award.org and award.org != empty %}
-              <i class="fas fa-building-columns fa-fw ms-2"></i>{{ award.org }}
+              <span class="cv-emoji ms-2">🏫</span>{{ award.org }}
             {%- endif %}
             {%- if award.team and award.team != empty %}
-              <i class="fas fa-users fa-fw ms-2"></i>{{ award.team }}
+              <span class="cv-emoji ms-2">👥</span>{{ award.team }}
             {%- endif %}
           </div>
 
@@ -57,7 +57,7 @@ layout: page
     </ul>
   {% else %}
     <div class="cv-empty">
-      <i class="fas fa-trophy"></i>
+      <span class="cv-emoji">🏆</span>
       <p>아직 등록된 수상 이력이 없습니다.</p>
       <p class="cv-empty__hint"><code>_data/awards.yml</code> 에 항목을 추가하세요.</p>
     </div>

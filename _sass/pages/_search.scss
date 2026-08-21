@@ -44,8 +44,9 @@ search {
   }
 
   @include bp.lg {
-    max-width: v.$main-content-max-width;
-    justify-content: start !important;
+    max-width: v.$page-max-width;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 

@@ -74,7 +74,7 @@ layout: default
 
       {% if cv.resume and cv.resume != empty %}
         <a class="cv-chip cv-chip--accent" href="{{ cv.resume | relative_url }}" target="_blank" rel="noopener">
-          <span class="cv-emoji">📄</span>이력서 (PDF)
+          <span class="cv-emoji">📄</span>Resume (PDF)
         </a>
       {% endif %}
     </div>
@@ -83,7 +83,7 @@ layout: default
   <!-- ========== 소개 ========== -->
   {% if cv.about and cv.about != empty %}
     <section class="cv-section">
-      <h2 class="cv-section__title"><span class="cv-emoji">👋</span>소개</h2>
+      <h2 class="cv-section__title"><span class="cv-emoji">👋</span>About</h2>
       <div class="cv-about content">{{ cv.about | markdownify }}</div>
     </section>
   {% endif %}
@@ -91,7 +91,7 @@ layout: default
   <!-- ========== 학력 ========== -->
   {% if cv.education.size > 0 %}
     <section class="cv-section">
-      <h2 class="cv-section__title"><span class="cv-emoji">🎓</span>학력</h2>
+      <h2 class="cv-section__title"><span class="cv-emoji">🎓</span>Education</h2>
       <ul class="cv-timeline">
         {% for edu in cv.education %}
           <li class="cv-timeline__item">
@@ -114,7 +114,7 @@ layout: default
   <!-- ========== 관심 분야 ========== -->
   {% if cv.interests.size > 0 %}
     <section class="cv-section">
-      <h2 class="cv-section__title"><span class="cv-emoji">🔭</span>관심 분야</h2>
+      <h2 class="cv-section__title"><span class="cv-emoji">🔭</span>Research Interests</h2>
       <div class="cv-tags">
         {% for item in cv.interests %}
           <span class="cv-tag">{{ item }}</span>
@@ -126,7 +126,7 @@ layout: default
   <!-- ========== 기술 스택 ========== -->
   {% if cv.skills.size > 0 %}
     <section class="cv-section">
-      <h2 class="cv-section__title"><span class="cv-emoji">🛠️</span>기술 스택</h2>
+      <h2 class="cv-section__title"><span class="cv-emoji">🛠️</span>Skills</h2>
       <div class="cv-skills">
         {% for skill in cv.skills %}
           <div class="cv-skill">
@@ -145,7 +145,7 @@ layout: default
   <!-- ========== 경력 · 활동 ========== -->
   {% if cv.experience.size > 0 %}
     <section class="cv-section">
-      <h2 class="cv-section__title"><span class="cv-emoji">💼</span>경력 · 활동</h2>
+      <h2 class="cv-section__title"><span class="cv-emoji">💼</span>Experience &amp; Activities</h2>
       <ul class="cv-timeline">
         {% for exp in cv.experience %}
           <li class="cv-timeline__item">
@@ -166,7 +166,7 @@ layout: default
   <!-- ========== 자격 · 어학 ========== -->
   {% if cv.certifications.size > 0 %}
     <section class="cv-section">
-      <h2 class="cv-section__title"><span class="cv-emoji">📜</span>자격 · 어학</h2>
+      <h2 class="cv-section__title"><span class="cv-emoji">📜</span>Certifications</h2>
       <ul class="cv-timeline">
         {% for cert in cv.certifications %}
           <li class="cv-timeline__item">
@@ -185,56 +185,126 @@ layout: default
     </section>
   {% endif %}
 
-  <!-- ========== 주요 논문 ========== -->
-  {% assign featured_pubs = site.data.publications | where: 'featured', true | sort: 'year' | reverse %}
-  {% if featured_pubs.size > 0 %}
+  {%- comment -%}
+    논문 · 수상 섹션은 처음에 3건만 보여 주고 나머지는 가운데 화살표 버튼으로 펼친다.
+    featured 항목이 하나도 없으면 최신 3건을 미리 보여 준다.
+  {%- endcomment -%}
+
+  <!-- ========== 논문 ========== -->
+  {% assign all_pubs = site.data.publications | sort: 'year' | reverse %}
+  {% if all_pubs.size > 0 %}
+    {% assign featured_pubs = all_pubs | where: 'featured', true %}
+    {% assign pub_preview = '' | split: '' %}
+    {% assign pub_rest = '' | split: '' %}
+
+    {% for pub in all_pubs %}
+      {% assign picked = false %}
+      {% if pub_preview.size < 3 %}
+        {% if featured_pubs.size == 0 or pub.featured %}
+          {% assign picked = true %}
+        {% endif %}
+      {% endif %}
+
+      {% if picked %}
+        {% assign pub_preview = pub_preview | push: pub %}
+      {% else %}
+        {% assign pub_rest = pub_rest | push: pub %}
+      {% endif %}
+    {% endfor %}
+
     <section class="cv-section">
-      <h2 class="cv-section__title">
-        <span class="cv-emoji">📄</span>주요 논문
-        <a class="cv-section__more" href="{{ '/publications/' | relative_url }}">전체 보기 →</a>
-      </h2>
+      <h2 class="cv-section__title"><span class="cv-emoji">📄</span>Publications</h2>
+
       <ul class="cv-list">
-        {% for pub in featured_pubs limit: 3 %}
+        {% for pub in pub_preview %}
           {% include pub-item.html pub=pub %}
         {% endfor %}
       </ul>
+
+      {% if pub_rest.size > 0 %}
+        <ul class="cv-list cv-more__list" id="cv-more-publications">
+          {% for pub in pub_rest %}
+            {% include pub-item.html pub=pub %}
+          {% endfor %}
+        </ul>
+
+        <div class="cv-more">
+          <button
+            type="button"
+            class="cv-more__btn"
+            aria-controls="cv-more-publications"
+            aria-expanded="false"
+            aria-label="Show all publications"
+            data-label-more="Show all publications"
+            data-label-less="Show fewer publications"
+          >
+            <i class="fas fa-chevron-down" aria-hidden="true"></i>
+          </button>
+        </div>
+      {% endif %}
     </section>
   {% endif %}
 
-  <!-- ========== 주요 수상 ========== -->
-  {% assign featured_awards = site.data.awards | where: 'featured', true | sort: 'date' | reverse %}
-  {% if featured_awards.size > 0 %}
+  <!-- ========== 수상 ========== -->
+  {% assign all_awards = site.data.awards | sort: 'date' | reverse %}
+  {% if all_awards.size > 0 %}
+    {% assign featured_awards = all_awards | where: 'featured', true %}
+    {% assign award_preview = '' | split: '' %}
+    {% assign award_rest = '' | split: '' %}
+
+    {% for award in all_awards %}
+      {% assign picked = false %}
+      {% if award_preview.size < 3 %}
+        {% if featured_awards.size == 0 or award.featured %}
+          {% assign picked = true %}
+        {% endif %}
+      {% endif %}
+
+      {% if picked %}
+        {% assign award_preview = award_preview | push: award %}
+      {% else %}
+        {% assign award_rest = award_rest | push: award %}
+      {% endif %}
+    {% endfor %}
+
     <section class="cv-section">
-      <h2 class="cv-section__title">
-        <span class="cv-emoji">🏆</span>주요 수상
-        <a class="cv-section__more" href="{{ '/awards/' | relative_url }}">전체 보기 →</a>
-      </h2>
+      <h2 class="cv-section__title"><span class="cv-emoji">🏆</span>Awards</h2>
+
       <ul class="cv-list">
-        {% for award in featured_awards limit: 3 %}
-          <li class="cv-award">
-            <div class="cv-award__head">
-              {% if award.prize and award.prize != empty %}
-                <span class="cv-badge cv-badge--prize">{{ award.prize }}</span>
-              {% endif %}
-              <span class="cv-award__title">{{ award.title }}</span>
-            </div>
-            <div class="cv-award__meta">
-              {{- award.date }}{% if award.org and award.org != empty %} · {{ award.org }}{% endif -%}
-            </div>
-            {% if award.summary and award.summary != empty %}
-              <p class="cv-award__summary">{{ award.summary }}</p>
-            {% endif %}
-          </li>
+        {% for award in award_preview %}
+          {% include award-item.html award=award %}
         {% endfor %}
       </ul>
+
+      {% if award_rest.size > 0 %}
+        <ul class="cv-list cv-more__list" id="cv-more-awards">
+          {% for award in award_rest %}
+            {% include award-item.html award=award %}
+          {% endfor %}
+        </ul>
+
+        <div class="cv-more">
+          <button
+            type="button"
+            class="cv-more__btn"
+            aria-controls="cv-more-awards"
+            aria-expanded="false"
+            aria-label="Show all awards"
+            data-label-more="Show all awards"
+            data-label-less="Show fewer awards"
+          >
+            <i class="fas fa-chevron-down" aria-hidden="true"></i>
+          </button>
+        </div>
+      {% endif %}
     </section>
   {% endif %}
 
   <!-- ========== 최근 논문 리뷰 (읽은 논문 정리) ========== -->
   <section class="cv-section">
     <h2 class="cv-section__title">
-      <span class="cv-emoji">📚</span>최근 논문 리뷰
-      <a class="cv-section__more" href="{{ '/paper-reviews/' | relative_url }}">전체 보기 →</a>
+      <span class="cv-emoji">📚</span>Recent Paper Reviews
+      <a class="cv-section__more" href="{{ '/paper-reviews/' | relative_url }}">View all →</a>
     </h2>
 
     {% if review_count > 0 %}
@@ -247,15 +317,15 @@ layout: default
         {% endfor %}
       </ul>
     {% else %}
-      <p class="cv-section__empty">아직 등록된 논문 리뷰가 없습니다.</p>
+      <p class="cv-section__empty">No paper reviews yet.</p>
     {% endif %}
   </section>
 
   <!-- ========== 최근 블로그 글 (개인 글) ========== -->
   <section class="cv-section">
     <h2 class="cv-section__title">
-      <span class="cv-emoji">✍️</span>최근 블로그 글
-      <a class="cv-section__more" href="{{ '/blog/' | relative_url }}">전체 보기 →</a>
+      <span class="cv-emoji">✍️</span>Recent Blog Posts
+      <a class="cv-section__more" href="{{ '/blog/' | relative_url }}">View all →</a>
     </h2>
 
     {% if blog_posts.size > 0 %}
@@ -268,8 +338,28 @@ layout: default
         {% endfor %}
       </ul>
     {% else %}
-      <p class="cv-section__empty">아직 작성한 글이 없습니다.</p>
+      <p class="cv-section__empty">No blog posts yet.</p>
     {% endif %}
   </section>
 </div>
 <!-- #cv -->
+
+{%- comment -%}
+  펼쳐보기 토글. 배포되는 번들(assets/js/dist)은 이 저장소에서 다시 빌드되지 않으므로
+  이 화면에서만 쓰는 짧은 스크립트는 여기에 인라인으로 둔다.
+  (compress 레이아웃이 줄바꿈을 지우므로 한 줄 주석은 쓰지 않는다)
+{%- endcomment -%}
+<script>
+  document.querySelectorAll('.cv-more__btn').forEach(function (btn) {
+    var list = document.getElementById(btn.getAttribute('aria-controls'));
+    if (!list) {
+      return;
+    }
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') !== 'true';
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.setAttribute('aria-label', open ? btn.dataset.labelLess : btn.dataset.labelMore);
+      list.classList.toggle('is-open', open);
+    });
+  });
+</script>

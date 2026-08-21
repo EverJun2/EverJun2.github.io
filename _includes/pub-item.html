@@ -16,10 +16,10 @@
 
 {% assign pub_type = pub.type | downcase %}
 {% case pub_type %}
-  {% when 'journal' %}{% assign type_label = '저널' %}
-  {% when 'conference' %}{% assign type_label = '학술대회' %}
-  {% when 'patent' %}{% assign type_label = '특허' %}
-  {% when 'preprint' %}{% assign type_label = '프리프린트' %}
+  {% when 'journal' %}{% assign type_label = 'Journal' %}
+  {% when 'conference' %}{% assign type_label = 'Conference' %}
+  {% when 'patent' %}{% assign type_label = 'Patent' %}
+  {% when 'preprint' %}{% assign type_label = 'Preprint' %}
   {% else %}{% assign type_label = pub.type %}
 {% endcase %}
 
@@ -70,7 +70,7 @@
 
       {% if pub.review and pub.review != empty %}
         <a class="cv-chip cv-chip--sm cv-chip--accent" href="{{ pub.review | relative_url }}">
-          <span class="cv-emoji">📚</span>리뷰 보기
+          <span class="cv-emoji">📚</span>Read review
         </a>
       {% endif %}
     </div>

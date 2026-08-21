@@ -1,0 +1,21 @@
+<!--
+  홈(CV) 화면의 수상 항목 하나를 그리는 조각.
+  사용: include 태그에 award 파라미터로 _data/awards.yml 의 항목 하나를 넘긴다.
+-->
+
+{% assign award = include.award %}
+
+<li class="cv-award">
+  <div class="cv-award__head">
+    {% if award.prize and award.prize != empty %}
+      <span class="cv-badge cv-badge--prize">{{ award.prize }}</span>
+    {% endif %}
+    <span class="cv-award__title">{{ award.title }}</span>
+  </div>
+  <div class="cv-award__meta">
+    {{- award.date }}{% if award.org and award.org != empty %} · {{ award.org }}{% endif -%}
+  </div>
+  {% if award.summary and award.summary != empty %}
+    <p class="cv-award__summary">{{ award.summary }}</p>
+  {% endif %}
+</li>

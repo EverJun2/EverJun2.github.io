@@ -1,4 +1,4 @@
-<!-- The Top Bar: 홈(CV) · 논문 · 수상 · 논문 리뷰 · 블로그 내비게이션 + 검색 -->
+<!-- The Top Bar: Home(CV) / Publications / Awards / Paper Reviews / Blog navigation + search -->
 
 {% assign review_cat = site.paper_review_category | default: 'Paper Review' %}
 
@@ -21,23 +21,23 @@
     <nav id="topbar-nav" class="flex-grow-1 h-100" aria-label="Site Navigation">
       <ul class="d-flex align-items-center h-100 mb-0 ps-0">
         <li class="topbar-nav-item{% if page.layout == 'cv' %}{{ ' active' }}{% endif %}">
-          <a href="{{ '/' | relative_url }}"><span class="cv-emoji">🏠</span>홈</a>
+          <a href="{{ '/' | relative_url }}"><span class="cv-emoji">🏠</span>Home</a>
         </li>
 
         <li class="topbar-nav-item{% if page.layout == 'publications' %}{{ ' active' }}{% endif %}">
-          <a href="{{ '/publications/' | relative_url }}"><span class="cv-emoji">📄</span>논문</a>
+          <a href="{{ '/publications/' | relative_url }}"><span class="cv-emoji">📄</span>Publications</a>
         </li>
 
         <li class="topbar-nav-item{% if page.layout == 'awards' %}{{ ' active' }}{% endif %}">
-          <a href="{{ '/awards/' | relative_url }}"><span class="cv-emoji">🏆</span>수상</a>
+          <a href="{{ '/awards/' | relative_url }}"><span class="cv-emoji">🏆</span>Awards</a>
         </li>
 
         <li class="topbar-nav-item{% if on_review %}{{ ' active' }}{% endif %}">
-          <a href="{{ '/paper-reviews/' | relative_url }}"><span class="cv-emoji">📚</span>논문 리뷰</a>
+          <a href="{{ '/paper-reviews/' | relative_url }}"><span class="cv-emoji">📚</span>Paper Reviews</a>
         </li>
 
         <li class="topbar-nav-item{% if on_blog %}{{ ' active' }}{% endif %}">
-          <a href="{{ '/blog/' | relative_url }}"><span class="cv-emoji">✍️</span>블로그</a>
+          <a href="{{ '/blog/' | relative_url }}"><span class="cv-emoji">✍️</span>Blog</a>
         </li>
       </ul>
     </nav>

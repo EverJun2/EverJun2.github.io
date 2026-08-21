@@ -12,7 +12,7 @@ layout: page
   {% endif %}
 
   {% if total > 0 %}
-    <p class="cv-count">총 <strong>{{ total }}</strong>건</p>
+    <p class="cv-count"><strong>{{ total }}</strong> awards</p>
 
     <ul class="cv-list cv-award-list">
       {% for award in awards %}
@@ -58,8 +58,8 @@ layout: page
   {% else %}
     <div class="cv-empty">
       <span class="cv-emoji">🏆</span>
-      <p>아직 등록된 수상 이력이 없습니다.</p>
-      <p class="cv-empty__hint"><code>_data/awards.yml</code> 에 항목을 추가하세요.</p>
+      <p>No awards listed yet.</p>
+      <p class="cv-empty__hint">Add entries to <code>_data/awards.yml</code>.</p>
     </div>
   {% endif %}
 </div>

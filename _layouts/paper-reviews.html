@@ -16,27 +16,27 @@ layout: page
 
   {% if total > 0 %}
     <p class="cv-count">
-      총 <strong>{{ total }}</strong>개의 글
+      <strong>{{ total }}</strong> posts
       {% capture cat_url %}/categories/{{ review_cat | slugify | url_encode }}/{% endcapture %}
-      <a class="cv-count__rss" href="{{ cat_url | relative_url }}">카테고리로 보기</a>
+      <a class="cv-count__rss" href="{{ cat_url | relative_url }}">Browse by category</a>
     </p>
 
     <div class="cv-board-wrapper">
       <table class="cv-board">
         <thead>
           <tr>
-            <th class="cv-board__no">번호</th>
-            <th class="cv-board__subject">제목</th>
-            <th class="cv-board__paper">논문 정보</th>
-            <th class="cv-board__date">작성일</th>
+            <th class="cv-board__no">No.</th>
+            <th class="cv-board__subject">Title</th>
+            <th class="cv-board__paper">Paper</th>
+            <th class="cv-board__date">Date</th>
           </tr>
         </thead>
         <tbody>
           {% for post in posts %}
             <tr>
-              <td class="cv-board__no" data-label="번호">{{ total | minus: forloop.index0 }}</td>
+              <td class="cv-board__no" data-label="No.">{{ total | minus: forloop.index0 }}</td>
 
-              <td class="cv-board__subject" data-label="제목">
+              <td class="cv-board__subject" data-label="Title">
                 <a class="cv-board__link" href="{{ post.url | relative_url }}">{{ post.title }}</a>
 
                 {% assign summary = post.description | default: post.excerpt %}
@@ -56,14 +56,14 @@ layout: page
                 {% endif %}
               </td>
 
-              <td class="cv-board__paper" data-label="논문 정보">
+              <td class="cv-board__paper" data-label="Paper">
                 {% if post.paper %}
                   <span class="cv-board__venue">
                     {{- post.paper.venue }}{% if post.paper.year %} {{ post.paper.year }}{% endif -%}
                   </span>
                   {% if post.paper.url and post.paper.url != empty %}
                     <a class="cv-chip cv-chip--sm" href="{{ post.paper.url }}" target="_blank" rel="noopener noreferrer">
-                      <span class="cv-emoji">🔗</span>원문
+                      <span class="cv-emoji">🔗</span>Original
                     </a>
                   {% endif %}
                 {% else %}
@@ -71,7 +71,7 @@ layout: page
                 {% endif %}
               </td>
 
-              <td class="cv-board__date" data-label="작성일">{{ post.date | date: '%Y.%m.%d' }}</td>
+              <td class="cv-board__date" data-label="Date">{{ post.date | date: '%Y.%m.%d' }}</td>
             </tr>
           {% endfor %}
         </tbody>
@@ -80,9 +80,9 @@ layout: page
   {% else %}
     <div class="cv-empty">
       <span class="cv-emoji">📚</span>
-      <p>아직 작성한 논문 리뷰가 없습니다.</p>
+      <p>No paper reviews yet.</p>
       <p class="cv-empty__hint">
-        <code>_posts/</code> 에 글을 추가하고 머리말에 <code>categories: [{{ review_cat }}]</code> 를 넣으면 이 게시판에 표시됩니다.
+        Add a post under <code>_posts/</code> with <code>categories: [{{ review_cat }}]</code> in its front matter and it will appear on this board.
       </p>
     </div>
   {% endif %}

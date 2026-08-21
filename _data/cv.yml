@@ -73,13 +73,13 @@ certifications:
     org: ETS
     date: '2026.02.01' # TODO: 취득일 (예: 2024.06)
   - name: SQL Developer (SQLD)
-    org: 한국데이터산업진흥원
+    org: Korea Data Agency (K-DATA)
     date: '' # TODO: 취득일 (예: 2024.06)
   - name: CSTS
     org: TTA
     date: ''
-  - name: TOPCIT (699점)
-    org: 정보통신기획평가원
+  - name: TOPCIT (Score 699)
+    org: Institute of Information & Communications Technology Planning & Evaluation (IITP)
     date: ''
 
 # ---------- 경력 / 활동 (없으면 목록을 비워두면 섹션이 숨겨집니다) ----------

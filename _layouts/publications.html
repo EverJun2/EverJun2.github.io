@@ -12,7 +12,7 @@ layout: page
   {% endif %}
 
   {% if total > 0 %}
-    <p class="cv-count">총 <strong>{{ total }}</strong>편</p>
+    <p class="cv-count"><strong>{{ total }}</strong> publications</p>
 
     {% assign last_year = '' %}
     {% for pub in pubs %}
@@ -38,8 +38,8 @@ layout: page
   {% else %}
     <div class="cv-empty">
       <span class="cv-emoji">📄</span>
-      <p>아직 등록된 논문이 없습니다.</p>
-      <p class="cv-empty__hint"><code>_data/publications.yml</code> 에 항목을 추가하세요.</p>
+      <p>No publications listed yet.</p>
+      <p class="cv-empty__hint">Add entries to <code>_data/publications.yml</code>.</p>
     </div>
   {% endif %}
 </div>

@@ -1,7 +1,7 @@
 ---
-title: 수상
+title: Awards
 layout: awards
 emoji: "🏆"
 order: 2
-intro: 대회 · 공모전 수상 이력과 간단한 요약입니다.
+intro: Awards from competitions and contests, with a short summary of each.
 ---

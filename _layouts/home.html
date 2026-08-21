@@ -27,7 +27,7 @@ layout: default
 {% endfor %}
 
 <h1 class="dynamic-title">
-  <span class="cv-emoji">✍️</span>{{ page.title | default: '블로그' }}
+  <span class="cv-emoji">✍️</span>{{ page.title | default: 'Blog' }}
 </h1>
 
 {% if page.intro and page.intro != empty %}
@@ -126,10 +126,10 @@ layout: default
 {% else %}
   <div class="cv-empty">
     <span class="cv-emoji">✍️</span>
-    <p>아직 작성한 글이 없습니다.</p>
+    <p>No posts yet.</p>
     <p class="cv-empty__hint">
-      <code>_posts/</code> 에 글을 추가하면 이 목록에 표시됩니다.
-      논문 리뷰는 <code>categories: [{{ review_cat }}]</code> 를 넣어 따로 관리하세요.
+      Add a post under <code>_posts/</code> and it will show up in this list.
+      Paper reviews are kept separate &mdash; give them <code>categories: [{{ review_cat }}]</code>.
     </p>
   </div>
 {% endif %}

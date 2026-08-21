@@ -723,3 +723,78 @@
     }
   }
 }
+
+/* ---------------- 펼쳐보기 (홈: 논문 · 수상) ---------------- */
+
+/* 접혀 있는 나머지 목록. 가운데 화살표 버튼으로 여닫는다. */
+.cv-more__list {
+  display: none;
+
+  &.is-open {
+    display: block;
+    animation: cv-more-reveal 0.25s ease-out;
+  }
+}
+
+/* 펼쳤을 때 미리보기 목록과 자연스럽게 이어지도록 구분선을 되살린다 */
+.cv-list:has(+ .cv-more__list.is-open) > .cv-pub:last-child,
+.cv-list:has(+ .cv-more__list.is-open) > .cv-award:last-child {
+  border-bottom: 1px solid var(--main-border-color);
+}
+
+@keyframes cv-more-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(-0.4rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.cv-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.85rem;
+}
+
+.cv-more__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.3rem;
+  height: 2.3rem;
+  padding: 0;
+  border: 1px solid var(--btn-border-color);
+  border-radius: 50%;
+  background: var(--card-bg);
+  color: var(--text-muted-color);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  i {
+    font-size: 0.8rem;
+    transition: transform 0.25s ease-in-out;
+  }
+
+  &:hover {
+    color: var(--link-color);
+    border-color: var(--link-color);
+  }
+
+  &[aria-expanded='true'] i {
+    transform: rotate(180deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cv-more__list.is-open {
+    animation: none;
+  }
+
+  .cv-more__btn i {
+    transition: none;
+  }
+}

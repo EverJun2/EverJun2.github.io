@@ -13,7 +13,8 @@ footer {
   @include bp.lt(bp.get(lg)) {
     @include mx.slide;
 
-    height: v.$footer-height-large;
+    height: auto;
+    min-height: v.$footer-height-large;
     padding: 1.5rem 0;
   }
 
@@ -32,5 +33,26 @@ footer {
   p {
     text-align: center;
     margin-bottom: 0;
+  }
+
+  .footer-contact {
+    gap: 1rem;
+    font-size: 1rem;
+    margin: 0.5rem 0;
+
+    a {
+      @extend %no-bottom-border;
+
+      color: var(--text-muted-color);
+
+      /* 링크 hover 색은 다른 푸터 링크와 동일하게 두고 밑줄만 없앤다 */
+      &:hover {
+        border-bottom: none;
+      }
+    }
+
+    @include bp.lg {
+      margin: 0;
+    }
   }
 }

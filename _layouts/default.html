@@ -17,14 +17,27 @@ layout: compress
   {% include head.html lang=lang %}
 
   <body>
-    {% include sidebar.html lang=lang %}
-
     <div id="main-wrapper" class="d-flex justify-content-center">
       <div class="container d-flex flex-column px-xxl-5">
         {% include topbar.html lang=lang %}
 
         <div class="row flex-grow-1">
-          <main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4">
+          {%- comment -%}
+            오른쪽 패널은 목차(panel_includes)가 있는 레이아웃에서만 띄우고,
+            그 외에는 본문이 가운데 정렬된 넓은 폭을 쓰도록 한다.
+          {%- endcomment -%}
+          {% assign has_panel = false %}
+          {% if layout.panel_includes.size > 0 %}
+            {% assign has_panel = true %}
+          {% endif %}
+
+          {%- if has_panel -%}
+            {%- assign col_class = 'col-xl-9' -%}
+          {%- else -%}
+            {%- assign col_class = 'col-xl-11 mx-auto' -%}
+          {%- endif -%}
+
+          <main aria-label="Main Content" class="col-12 col-lg-11 px-md-4 {{ col_class }}">
             {% if layout.layout == 'default' %}
               {% include refactor-content.html content=content lang=lang %}
             {% else %}
@@ -32,23 +45,20 @@ layout: compress
             {% endif %}
           </main>
 
-          <!-- panel -->
-          <aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 text-muted">
-            <div class="access">
-              {% include_cached update-list.html lang=lang %}
-              {% include_cached trending-tags.html lang=lang %}
-            </div>
-
-            {% for _include in layout.panel_includes %}
-              {% assign _include_path = _include | append: '.html' %}
-              {% include {{ _include_path }} lang=lang %}
-            {% endfor %}
-          </aside>
+          {% if has_panel %}
+            <!-- panel -->
+            <aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 text-muted">
+              {% for _include in layout.panel_includes %}
+                {% assign _include_path = _include | append: '.html' %}
+                {% include {{ _include_path }} lang=lang %}
+              {% endfor %}
+            </aside>
+          {% endif %}
         </div>
 
         <div class="row">
           <!-- tail -->
-          <div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4">
+          <div id="tail-wrapper" class="col-12 col-lg-11 px-md-4 {{ col_class }}">
             {% for _include in layout.tail_includes %}
               {% assign _include_path = _include | append: '.html' %}
               {% include {{ _include_path }} lang=lang %}

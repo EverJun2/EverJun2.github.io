@@ -6,6 +6,7 @@
 #topbar-wrapper {
   height: v.$topbar-height;
   background-color: var(--topbar-bg);
+  border-bottom: 1px solid var(--main-border-color);
 
   @include bp.lt(bp.get(lg)) {
     @include mx.slide(top 0.2s ease);
@@ -17,36 +18,7 @@
 #topbar {
   @extend %btn-color;
 
-  #breadcrumb {
-    font-size: 1rem;
-    color: var(--text-muted-color);
-    padding-left: 0.5rem;
-
-    a:hover {
-      @extend %link-hover;
-    }
-
-    span {
-      &:not(:last-child) {
-        &::after {
-          content: '›';
-          padding: 0 0.3rem;
-        }
-      }
-    }
-
-    @include bp.lt(bp.get(lg)) {
-      display: none;
-    }
-
-    @include bp.between(bp.get(lg), calc(#{bp.get(xl)} - 1px)) {
-      width: 65%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      word-break: keep-all;
-      white-space: nowrap;
-    }
-  }
+  gap: 0.25rem;
 
   @include bp.lte(bp.get(md)) {
     @include mx.max-w-100;
@@ -54,33 +26,98 @@
 
   @include bp.lt(bp.get(lg)) {
     max-width: 100%;
+    padding: 0 0.25rem;
   }
 }
 
-#topbar-title {
-  display: none;
-  font-size: 1.1rem;
-  font-weight: 600;
-  font-family: sans-serif;
-  color: var(--topbar-text-color);
-  text-align: center;
-  width: 70%;
-  word-break: keep-all;
+/* 사이트 이름 (홈으로 이동) */
+#site-brand {
+  @extend %text-highlight;
+  @extend %no-bottom-border;
 
-  @include bp.lt(bp.get(lg)) {
-    display: block;
+  flex-shrink: 0;
+  font-family: v.$font-family-heading;
+  font-size: 1.05rem;
+  font-weight: 700;
+  white-space: nowrap;
+  padding-left: 0.5rem;
+  margin-right: 1.25rem;
+
+  &:hover {
+    @extend %link-hover;
   }
 
-  @include bp.lg {
-    text-align: left;
+  /* 좁은 화면에서는 메뉴에 자리를 내어 준다 */
+  @include bp.lt(bp.get(md)) {
+    display: none;
   }
 }
 
+/* 헤더 내비게이션: 홈(CV) · 블로그 · 논문 리뷰 */
+#topbar-nav {
+  min-width: 0;
+
+  ul {
+    list-style: none;
+    gap: 0.35rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .topbar-nav-item {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    a {
+      @extend %no-bottom-border;
+
+      display: flex;
+      align-items: center;
+      height: 100%;
+      padding: 0 0.75rem;
+      font-family: v.$font-family-heading;
+      font-size: 0.95rem;
+      font-weight: 600;
+      white-space: nowrap;
+      color: var(--text-muted-color);
+      border-bottom: 2px solid transparent;
+
+      &:hover {
+        color: var(--link-color);
+      }
+    }
+
+    &.active a {
+      color: var(--link-color);
+      border-bottom-color: var(--link-color);
+    }
+  }
+}
+
+/* 사이드바 제거로 더 이상 쓰지 않는 요소들. 테마 JS 가 참조하므로 DOM 에는 남아 있다. */
 #sidebar-trigger,
+#topbar-title {
+  display: none !important;
+}
+
 #search-trigger {
   display: none;
 
   @include bp.lt(bp.get(lg)) {
     display: block;
+  }
+}
+
+/* 모바일에서 검색을 열면 메뉴를 감춰 입력창 자리를 확보한다 */
+#topbar:has(search.d-flex) {
+  #site-brand,
+  #topbar-nav,
+  #mode-toggle {
+    display: none;
   }
 }

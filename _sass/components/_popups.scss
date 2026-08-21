@@ -82,10 +82,6 @@
     animation: $slide-out;
   }
 
-  @include bp.lg {
-    left: v.$sidebar-width;
-  }
-
   .header {
     @extend %btn-color;
 

@@ -2,31 +2,6 @@
 @use '../abstracts/mixins' as mx;
 @use '../abstracts/placeholders';
 
-.access {
-  top: 2rem;
-  transition: top 0.2s ease-in-out;
-  margin-top: 3rem;
-
-  &:only-child {
-    position: -webkit-sticky;
-    position: sticky;
-  }
-
-  > section {
-    @extend %panel-border;
-
-    padding-left: 1rem;
-
-    &:not(:first-child) {
-      margin-top: 4rem;
-    }
-  }
-
-  .content {
-    font-size: 0.9rem;
-  }
-}
-
 #panel-wrapper {
   /* the headings */
   .panel-heading {
@@ -54,17 +29,5 @@
 
   @include bp.lt(bp.get(xl)) {
     display: none;
-  }
-}
-
-#access-lastmod {
-  a {
-    color: inherit;
-
-    &:hover {
-      @extend %link-hover;
-    }
-
-    @extend %no-bottom-border;
   }
 }

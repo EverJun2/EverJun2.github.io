@@ -1,61 +1,60 @@
-<!-- The Top Bar -->
+<!-- The Top Bar: 홈(CV) · 블로그 · 논문 리뷰 내비게이션 + 검색 -->
+
+{% assign review_tab = site.tabs | where: 'url', '/paper-reviews/' | first %}
+{% assign review_cat = site.paper_review_category | default: 'Paper Review' %}
+
+{% assign on_review = false %}
+{% if page.layout == 'paper-reviews' or page.categories contains review_cat %}
+  {% assign on_review = true %}
+{% endif %}
+
+{% assign on_blog = false %}
+{% if on_review == false %}
+  {% if page.layout == 'home' or page.layout == 'post' %}
+    {% assign on_blog = true %}
+  {% endif %}
+{% endif %}
 
 <header id="topbar-wrapper" class="flex-shrink-0" aria-label="Top Bar">
-  <div
-    id="topbar"
-    class="d-flex align-items-center justify-content-between px-lg-3 h-100"
-  >
-    <nav id="breadcrumb" aria-label="Breadcrumb">
-      {% assign paths = page.url | split: '/' %}
+  <div id="topbar" class="d-flex align-items-center px-lg-3 h-100">
+    <a id="site-brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
 
-      {% if paths.size == 0 %}
-        <!-- index page -->
-        <span>{{ site.data.locales[include.lang].tabs.home | capitalize }}</span>
+    <nav id="topbar-nav" class="flex-grow-1 h-100" aria-label="Site Navigation">
+      <ul class="d-flex align-items-center h-100 mb-0 ps-0">
+        <li class="topbar-nav-item{% if page.layout == 'cv' %}{{ ' active' }}{% endif %}">
+          <a href="{{ '/' | relative_url }}">
+            {{- site.data.locales[include.lang].tabs.home | default: '홈' -}}
+          </a>
+        </li>
 
-      {% else %}
-        {% for item in paths %}
-          {% if forloop.first %}
-            <span>
-              <a href="{{ '/' | relative_url }}">
-                {{- site.data.locales[include.lang].tabs.home | capitalize -}}
-              </a>
-            </span>
+        <li class="topbar-nav-item{% if on_blog %}{{ ' active' }}{% endif %}">
+          <a href="{{ '/blog/' | relative_url }}">
+            {{- site.data.locales[include.lang].tabs.blog | default: '블로그' -}}
+          </a>
+        </li>
 
-          {% elsif forloop.last %}
-            {% if page.collection == 'tabs' %}
-              <span>{{ site.data.locales[include.lang].tabs[item] | default: page.title }}</span>
-            {% else %}
-              <span>{{ page.title }}</span>
-            {% endif %}
-
-          {% elsif page.layout == 'category' or page.layout == 'tag' %}
-            <span>
-              <a href="{{ item | append: '/' | relative_url }}">
-                {{- site.data.locales[include.lang].tabs[item] | default: page.title -}}
-              </a>
-            </span>
-          {% endif %}
-        {% endfor %}
-      {% endif %}
+        <li class="topbar-nav-item{% if on_review %}{{ ' active' }}{% endif %}">
+          <a href="{{ review_tab.url | default: '/paper-reviews/' | relative_url }}">
+            {{- review_tab.title | default: '논문 리뷰' -}}
+          </a>
+        </li>
+      </ul>
     </nav>
-    <!-- endof #breadcrumb -->
 
-    <button type="button" id="sidebar-trigger" class="btn btn-link" aria-label="Sidebar">
+    {% comment %}
+      사이드바는 제거했지만, 배포되는 commons.min.js 가 아래 두 요소를 참조하므로
+      DOM 에는 남겨 두고 CSS 로만 숨깁니다. (지우면 헤더 검색/다크모드 토글이 함께 죽습니다)
+    {% endcomment %}
+    <button type="button" id="sidebar-trigger" class="btn btn-link" aria-hidden="true" tabindex="-1">
       <i class="fas fa-bars fa-fw"></i>
     </button>
+    <div id="topbar-title" aria-hidden="true"></div>
 
-    <div id="topbar-title">
-      {% if page.layout == 'cv' %}
-        {{- site.data.locales[include.lang].title | default: site.title -}}
-      {% elsif page.layout == 'home' %}
-        {{- page.title | default: site.data.locales[include.lang].title | default: site.title -}}
-      {% elsif page.collection == 'tabs' or page.layout == 'page' %}
-        {%- capture tab_key -%}{{ page.url | split: '/' }}{%- endcapture -%}
-        {{- site.data.locales[include.lang].tabs[tab_key] | default: page.title -}}
-      {% else %}
-        {{- site.data.locales[include.lang].layout[page.layout] | default: page.layout | capitalize -}}
-      {% endif %}
-    </div>
+    {% unless site.theme_mode %}
+      <button type="button" class="btn btn-link" aria-label="Switch Mode" id="mode-toggle">
+        <i class="fas fa-adjust fa-fw"></i>
+      </button>
+    {% endunless %}
 
     <button type="button" id="search-trigger" class="btn btn-link" aria-label="Search">
       <i class="fas fa-search fa-fw"></i>
